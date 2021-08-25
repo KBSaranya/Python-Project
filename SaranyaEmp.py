@@ -41,11 +41,11 @@ def validatephoneno():
 def validateEmailid():   
   while True:
     email=input("Enter yout Email eg(xxx@gmail.com)")
-    email_regex = re.compile(r"[^@]+@[^@]+\.[^@]+")
+    email_regex = re.compile("^[a-z0-9]+[\._]?[a-z0-9]+[@]\D+[.]\w{2,3}$")
     if email_regex.match(str(email)):
         return email
     else:
-        print("Please Enter the valid Email id")
+        print("Invalid Email id , Please Enter the valid Email id")
         continue
 
 
@@ -186,15 +186,14 @@ if __name__ == '__main__':
         EMPLOYEESALARY=validatesalary()
         printinfo(EMPLOYEEID,EMPLOYEENAME, EMPLOYEENUMBER,EMPLOYEEEMAIL,EMPLOYEEAGE,EMPLOYEEEXP,EMPLOYEEQUALIFICATION,EMPLOYEESALARY,EMPDOB,EMPDOJ)
         while True:
+            special_char = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
             final=input('\nDo you you want to enter another employee record? click any character to continue ')
-            if ((final.isdigit())):
+            if ((final.isdigit() or special_char.search(final)!= None)):
                 print("should not a numeric vaule Please enter any charcter to continue, ")
                 continue
-            elif final=='Y':
-                continue
             else:
-                print('\nThank You\n')
                 break
+           
 
 
 
