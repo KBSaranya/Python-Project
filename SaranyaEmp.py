@@ -25,21 +25,22 @@ def qualify(args):
      
 def validatephoneno():
     while True:
-        Phonenumber = (input('Enter your Phone Number:'))
+        Phonenumber = (input('Enter your Phone Number it should not start with (0-5):'))
         if (not(Phonenumber.isdigit())):
             print(' Mobile number should be in numeric.Give it an another try')
             continue
-        elif len(Phonenumber)!=10:
-            print("Please Enter the valid Phonenumber it should not be greater or less then 10 digits")
-            continue
+       
         elif Phonenumber.startswith(('0' , '1' , '2', '3', '4', '5')):
             print("Please Enter the valid Phonenumber it should not starts with 1,2,3,4,5")
+            continue
+        elif len(Phonenumber)!=10:
+            print("Please Enter the valid Phonenumber it should not be greater or less then 10 digits")
             continue
         else :
            return Phonenumber
 def validateEmailid():   
   while True:
-    email=input("Enter yout Email")
+    email=input("Enter yout Email eg(xxx@gmail.com)")
     email_regex = re.compile(r"[^@]+@[^@]+\.[^@]+")
     if email_regex.match(str(email)):
         return email
@@ -50,10 +51,10 @@ def validateEmailid():
 
 def validateEmpID():
     while True:
-        ID=input('Enter your Employee ID:')
+        ID=input('Enter your Employee ID eg(1234):')
         EmpID= 'ACE'+ID
         if (not(ID.isdigit())):
-            print('Oops :( ! ID should be in numeric. You got an another chance')
+            print('Oops :( ID should be in numeric')
             continue
         elif int(ID)==0:
             print('Oh-no! Employee ID cannot be null. Please enter  valid ID')
@@ -66,14 +67,13 @@ def validateEmpID():
         
 def validateEmpname():
     while True:
-        Emp_name=input("Enter the Employee Name")
+        Emp_name=input("Enter your Name ")
         space=''
         if ' ' in Emp_name:
-            print("Enter the valid employee name it should not empty")
+            print("Enter the valid employee name it should not have space")
             continue
         elif (not(Emp_name.isalpha())):
-            print("please Enter the valid employee id t should not be numeric")
-            continue
+            print("please Enter the valid employee id t should not be numeric and special character")
             continue
         elif isrepeated(Emp_name):
             print('Sorry! The Name you entered has repeated alphabets. Please enter a valid Name')
@@ -112,7 +112,7 @@ def validatedob():
             if age<0:
                 print("you have entered a future date")
             elif age<18:
-                print('You are too young. You have time to come again')
+                print('You age should be greater then 18 and below 60')
             elif age>60:
                 print("Happy to bid you bye")
             else:
@@ -122,22 +122,24 @@ def validatedob():
             validatedob()
 
 def validatedoj():
-    try:
-        doj1=input('Enter your DOJ in the format YYYY-MM-DD:')
-        doj= datetime.datetime.strptime(doj1, '%Y-%m-%d')
-        exp=findage(doj)
-        if exp<0:
-            print("you have entered a future date")
-        else:
-            return str(exp),doj1
-    except:
+    while True:
+        try:
+            doj1=input('Enter your DOJ in the format YYYY-MM-DD:')
+            doj= datetime.datetime.strptime(doj1, '%Y-%m-%d')
+            exp=findage(doj)
+            if exp<0:
+                print("you have entered a future date")
+            
+            else:
+               return str(exp),doj1
+        except:
             print("Sorry You entered the invalid doj Try Again!!")
             validatedoj()
 
 def validatesalary():
     special_char = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
     while True:
-        salary = input('Enter any salary: ')
+        salary = input('Enter your salary in range(1000-1000000) : ')
         
         if (special_char.search(salary)!= None):
             print('Salary should be in special character')
@@ -183,12 +185,16 @@ if __name__ == '__main__':
         EMPLOYEEQUALIFICATION=Qualification()
         EMPLOYEESALARY=validatesalary()
         printinfo(EMPLOYEEID,EMPLOYEENAME, EMPLOYEENUMBER,EMPLOYEEEMAIL,EMPLOYEEAGE,EMPLOYEEEXP,EMPLOYEEQUALIFICATION,EMPLOYEESALARY,EMPDOB,EMPDOJ)
-        final=input('\nDo you you want to enter another employee record?(Y/N)')
-        if final=='Y':
-            continue
-        else:
-            print('\nThank You\n')
-            break
+        while True:
+            final=input('\nDo you you want to enter another employee record? click any character to continue ')
+            if ((final.isdigit())):
+                print("should not a numeric vaule Please enter any charcter to continue, ")
+                continue
+            elif final=='Y':
+                continue
+            else:
+                print('\nThank You\n')
+                break
 
 
 
